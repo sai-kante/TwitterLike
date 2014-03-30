@@ -7,6 +7,7 @@
 //
 
 #import "User.h"
+#import "TwitterClient.h"
 
 @implementation User
 
@@ -16,7 +17,7 @@ static User *currentUser=nil;
     
     //retrieve from user defaults
     if(currentUser==nil) {
-        NSObject *user= [[NSUserDefaults standardUserDefaults] objectForKey:@"TwitterLike_current_user"];
+        NSObject *user= [[NSUserDefaults standardUserDefaults] objectForKey:@"TwitterLike_current_user_access_token"];
         if(user) {
             currentUser=(User*) user;
         }
@@ -27,7 +28,7 @@ static User *currentUser=nil;
 
 + (void) setCurrentUserAs:(User*) user {
     //save to user defaults
-    [[NSUserDefaults standardUserDefaults] setObject:user forKey:@"TwitterLike_current_user"];
+    [[NSUserDefaults standardUserDefaults] setObject:user forKey:@"TwitterLike_current_user_access_token"];
 }
 
 @end

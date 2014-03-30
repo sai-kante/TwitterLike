@@ -30,9 +30,18 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.title=@"Twitter Like";
     
-    //hide the navigation bar
-    [self navigationController].navigationBarHidden=YES;
+    // auto login user if he is persisted
+    TwitterClient *client=[TwitterClient instance];
+    if([client isAuthorized]) {
+        [client requestHomeTimelineWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+            NSArray *tweets=(NSArray*)responseObject;
+            [self loggedInWithTweets:tweets];
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            NSLog(@"failed to retrieve timeline with error : %@",error);
+        }];
+    }
 }
 
 - (void)didReceiveMemoryWarning
