@@ -9,8 +9,11 @@
 #import "HomeTimeLineTableViewController.h"
 #import "HomeTimeLineTableViewCell.h"
 #import "Tweet.h"
+#import "TwitterClient.h"
 #import "AFNetworking.h"
 #import <SDWebImage/UIImageView+WebCache.h>
+#import "MBProgressHUD.h"
+
 
 #define SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(v)  ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedAscending)
 
@@ -24,7 +27,10 @@ static int TweetTextLabelWidth=245;
 
 @end
 
-@implementation HomeTimeLineTableViewController
+@implementation HomeTimeLineTableViewController{
+    UIRefreshControl *refresh;
+    MBProgressHUD *progressHUD;
+}
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -44,11 +50,23 @@ static int TweetTextLabelWidth=245;
         self.edgesForExtendedLayout = UIRectEdgeNone;
     }
     
-    UINib *customCellNib= [UINib nibWithNibName:CellIdentifier bundle:nil];
-    [self.tableView registerNib:customCellNib forCellReuseIdentifier:CellIdentifier];
-    
     [self navigationController].navigationBarHidden=NO;
     [self navigationController].title=@"Recent Tweets";
+    
+    progressHUD = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    [progressHUD hide:YES];
+    
+    refresh = [[UIRefreshControl alloc] init];
+    refresh.tintColor = [UIColor grayColor];
+    refresh.attributedTitle = [[NSAttributedString alloc] initWithString:@"Pull to Refresh"];
+    [refresh addTarget:self action:@selector(refreshView:) forControlEvents:UIControlEventValueChanged];
+    
+    self.refreshControl = refresh;
+    
+    UINib *customCellNib= [UINib nibWithNibName:CellIdentifier bundle:nil];
+    [self.tableView registerNib:customCellNib forCellReuseIdentifier:CellIdentifier];
+    self.tableView.delegate = self;
+    
     
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -110,76 +128,8 @@ static int TweetTextLabelWidth=245;
     [cell setNeedsUpdateConstraints];
     [cell updateConstraintsIfNeeded];
     
-    
-    
     return cell;
 }
-
-/*
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:<#@"reuseIdentifier"#> forIndexPath:indexPath];
-    
-    // Configure the cell...
-    
-    return cell;
-}
-*/
-
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
-
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
-{
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
-
-/*
-#pragma mark - Table view delegate
-
-// In a xib-based application, navigation from a table can be handled in -tableView:didSelectRowAtIndexPath:
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Navigation logic may go here, for example:
-    // Create the next view controller.
-    <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:<#@"Nib name"#> bundle:nil];
-    
-    // Pass the selected object to the new view controller.
-    
-    // Push the view controller.
-    [self.navigationController pushViewController:detailViewController animated:YES];
-}
-*/
 
 #pragma mark - Helper methods for this class
 
@@ -194,5 +144,31 @@ static int TweetTextLabelWidth=245;
     return rect.size;
     
 }
+
+-(void)refreshView:(UIRefreshControl *)refreshC {
+    
+    refreshC.attributedTitle = [[NSAttributedString alloc] initWithString:@"Refreshing data..."];
+    [progressHUD show:YES];
+    TwitterClient *client=[TwitterClient instance];
+    [client requestHomeTimelineWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSArray *tweets=(NSArray*)responseObject;
+        NSMutableArray *tweetsArray = [[NSMutableArray alloc] init];
+        for(NSDictionary *tweetSrc in tweets) {
+            Tweet *tweet= [[Tweet alloc] init];
+            [tweet initTweetWithDictionary:tweetSrc];
+            [tweetsArray addObject:tweet];
+        }
+        self.tweets=tweetsArray;
+        [progressHUD hide:YES];
+        [self.tableView reloadData];
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        [progressHUD hide:YES];
+
+        NSLog(@"failed to retrieve timeline with error : %@",error);
+    }];
+    [refreshC endRefreshing];
+    
+}
+
 
 @end

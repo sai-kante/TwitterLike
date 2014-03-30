@@ -91,7 +91,7 @@
                     [client.requestSerializer saveAccessToken:accessToken];
                     [client requestHomeTimelineWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
                         NSArray *tweets=(NSArray*)responseObject;
-                        NSLog(@"response: %@",tweets[0]);
+                        //NSLog(@"response: %@",tweets[0]);
                         [self.loginVc loggedInWithTweets:tweets];
                     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                         NSLog(@"failed to retrieve timeline with error : %@",error);

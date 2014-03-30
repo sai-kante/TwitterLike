@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "PullRefreshTableViewController.h"
 
-@interface HomeTimeLineTableViewController : UITableViewController <UITableViewDataSource,UITableViewDelegate>
+@interface HomeTimeLineTableViewController : PullRefreshTableViewController <UITableViewDataSource,UITableViewDelegate>
 
 @property (retain, nonatomic) NSMutableArray *tweets;
 
