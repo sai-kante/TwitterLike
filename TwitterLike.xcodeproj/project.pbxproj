@@ -29,6 +29,8 @@
 		EC1F90B818E79A9C00B31812 /* HomeTimeLineTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EC1F90B618E79A9C00B31812 /* HomeTimeLineTableViewCell.m */; };
 		EC1F90B918E79A9C00B31812 /* HomeTimeLineTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = EC1F90B718E79A9C00B31812 /* HomeTimeLineTableViewCell.xib */; };
 		EC1F90BD18E7CCE400B31812 /* Tweet.m in Sources */ = {isa = PBXBuildFile; fileRef = EC1F90BC18E7CCE400B31812 /* Tweet.m */; };
+		EC1F90C618E7F21600B31812 /* TweetInDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EC1F90C418E7F21600B31812 /* TweetInDetailViewController.m */; };
+		EC1F90C718E7F21600B31812 /* TweetInDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EC1F90C518E7F21600B31812 /* TweetInDetailViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -75,6 +77,9 @@
 		EC1F90B718E79A9C00B31812 /* HomeTimeLineTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HomeTimeLineTableViewCell.xib; sourceTree = "<group>"; };
 		EC1F90BB18E7CCE400B31812 /* Tweet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Tweet.h; sourceTree = "<group>"; };
 		EC1F90BC18E7CCE400B31812 /* Tweet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Tweet.m; sourceTree = "<group>"; };
+		EC1F90C318E7F21600B31812 /* TweetInDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TweetInDetailViewController.h; sourceTree = "<group>"; };
+		EC1F90C418E7F21600B31812 /* TweetInDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TweetInDetailViewController.m; sourceTree = "<group>"; };
+		EC1F90C518E7F21600B31812 /* TweetInDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TweetInDetailViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -185,6 +190,9 @@
 				EC1F90B018E79A8000B31812 /* HomeTimeLineTableViewController.h */,
 				EC1F90B118E79A8000B31812 /* HomeTimeLineTableViewController.m */,
 				EC1F90B218E79A8000B31812 /* HomeTimeLineTableViewController.xib */,
+				EC1F90C318E7F21600B31812 /* TweetInDetailViewController.h */,
+				EC1F90C418E7F21600B31812 /* TweetInDetailViewController.m */,
+				EC1F90C518E7F21600B31812 /* TweetInDetailViewController.xib */,
 				EC1F90BA18E79AA100B31812 /* ViewCells */,
 			);
 			name = ViewControllers;
@@ -290,6 +298,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EC1F90C718E7F21600B31812 /* TweetInDetailViewController.xib in Resources */,
 				EC1F907F18E7803C00B31812 /* InfoPlist.strings in Resources */,
 				EC1F90B918E79A9C00B31812 /* HomeTimeLineTableViewCell.xib in Resources */,
 				EC1F908718E7803C00B31812 /* Images.xcassets in Resources */,
@@ -353,6 +362,7 @@
 				EC1F908518E7803C00B31812 /* AppDelegate.m in Sources */,
 				EC1F90A518E782B100B31812 /* TwitterClient.m in Sources */,
 				EC1F908118E7803C00B31812 /* main.m in Sources */,
+				EC1F90C618E7F21600B31812 /* TweetInDetailViewController.m in Sources */,
 				EC1F90B318E79A8000B31812 /* HomeTimeLineTableViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

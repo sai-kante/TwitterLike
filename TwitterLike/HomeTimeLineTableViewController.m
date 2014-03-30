@@ -13,6 +13,7 @@
 #import "AFNetworking.h"
 #import <SDWebImage/UIImageView+WebCache.h>
 #import "MBProgressHUD.h"
+#import "TweetInDetailViewController.h"
 
 
 #define SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(v)  ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedAscending)
@@ -21,6 +22,13 @@ static NSString *CellIdentifier = @"HomeTimeLineTableViewCell";
 static int CustomTableViewCellHeight=125;
 static int TweetTextLabelFontSize=13;
 static int TweetTextLabelWidth=245;
+
+@implementation UIImageView (setRoundedCorners)
+-(void) setRoundedCorners {
+    self.layer.cornerRadius = 9.0;
+    self.layer.masksToBounds = YES;
+}
+@end
 
 @interface HomeTimeLineTableViewController ()
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
@@ -111,6 +119,7 @@ static int TweetTextLabelWidth=245;
     cell.tweetText.preferredMaxLayoutWidth = CGRectGetWidth(tableView.bounds);
 
     [cell.profileImage setImageWithURL:[NSURL URLWithString:tweet.profileImageUrl] placeholderImage:[UIImage imageNamed:@"noImage.png"]];
+    [cell.profileImage setRoundedCorners];
     
     cell.screenName.text = [NSString stringWithFormat:@"@%@",tweet.screenName];
     cell.userName.text= tweet.userName;
@@ -129,6 +138,14 @@ static int TweetTextLabelWidth=245;
     [cell updateConstraintsIfNeeded];
     
     return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    TweetInDetailViewController *detailedView=[[TweetInDetailViewController alloc] init];
+    detailedView.currentTweet=self.tweets[indexPath.row];
+    if(detailedView.currentTweet!=NULL) {
+        [self.navigationController pushViewController:detailedView animated:YES];
+    }
 }
 
 #pragma mark - Helper methods for this class
