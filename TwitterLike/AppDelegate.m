@@ -41,7 +41,7 @@
     self.loginVc= [[LoginViewController alloc] init];
 
     UINavigationController *uvc = [[UINavigationController alloc] initWithRootViewController:self.loginVc];
-    uvc.navigationBar.barTintColor = [UIColor colorWithRed:113/255.0f green:228/255.0f blue:246/255.0f alpha:1.0f];;
+    uvc.navigationBar.barTintColor = [UIColor colorWithRed:113/255.0f green:228/255.0f blue:246/255.0f alpha:1.0f];
 
     self.window.rootViewController = uvc;
 

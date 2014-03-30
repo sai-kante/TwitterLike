@@ -58,8 +58,11 @@ static int TweetTextLabelWidth=245;
         self.edgesForExtendedLayout = UIRectEdgeNone;
     }
     
-    [self navigationController].navigationBarHidden=NO;
-    [self navigationController].title=@"Recent Tweets";
+    self.title=@"Recent Tweets";
+    
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Logout" style:UIBarButtonItemStylePlain target:self action:@selector(onLogoutButton:)];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Compose" style:UIBarButtonItemStylePlain target:self action:@selector(onComposeButton:)];
+
     
     progressHUD = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     [progressHUD hide:YES];
@@ -187,5 +190,14 @@ static int TweetTextLabelWidth=245;
     
 }
 
+-(IBAction) onLogoutButton:(id)sender {
+    TwitterClient *client=[TwitterClient instance];
+    [client deauthorize];
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+-(IBAction) onComposeButton:(id)sender {
+    
+}
 
 @end

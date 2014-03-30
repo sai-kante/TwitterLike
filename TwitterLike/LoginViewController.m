@@ -31,7 +31,7 @@
 {
     [super viewDidLoad];
     self.title=@"Twitter Like";
-    
+
     // auto login user if he is persisted
     TwitterClient *client=[TwitterClient instance];
     if([client isAuthorized]) {
@@ -67,5 +67,6 @@
     homeTimeLine.tweets = tweetsArray;
     [self.navigationController pushViewController:homeTimeLine animated:YES];
 }
+
 
 @end
