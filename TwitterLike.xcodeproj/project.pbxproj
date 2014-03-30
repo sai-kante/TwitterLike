@@ -23,7 +23,6 @@
 		EC1F90A518E782B100B31812 /* TwitterClient.m in Sources */ = {isa = PBXBuildFile; fileRef = EC1F90A418E782B100B31812 /* TwitterClient.m */; };
 		EC1F90A918E783EA00B31812 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EC1F90A718E783EA00B31812 /* LoginViewController.m */; };
 		EC1F90AA18E783EA00B31812 /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EC1F90A818E783EA00B31812 /* LoginViewController.xib */; };
-		EC1F90AF18E7978800B31812 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = EC1F90AE18E7978800B31812 /* User.m */; };
 		EC1F90B318E79A8000B31812 /* HomeTimeLineTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EC1F90B118E79A8000B31812 /* HomeTimeLineTableViewController.m */; };
 		EC1F90B418E79A8000B31812 /* HomeTimeLineTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EC1F90B218E79A8000B31812 /* HomeTimeLineTableViewController.xib */; };
 		EC1F90B818E79A9C00B31812 /* HomeTimeLineTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EC1F90B618E79A9C00B31812 /* HomeTimeLineTableViewCell.m */; };
@@ -75,8 +74,6 @@
 		EC1F90A618E783EA00B31812 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		EC1F90A718E783EA00B31812 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		EC1F90A818E783EA00B31812 /* LoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoginViewController.xib; sourceTree = "<group>"; };
-		EC1F90AD18E7978800B31812 /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
-		EC1F90AE18E7978800B31812 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
 		EC1F90B018E79A8000B31812 /* HomeTimeLineTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeTimeLineTableViewController.h; sourceTree = "<group>"; };
 		EC1F90B118E79A8000B31812 /* HomeTimeLineTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeTimeLineTableViewController.m; sourceTree = "<group>"; };
 		EC1F90B218E79A8000B31812 /* HomeTimeLineTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HomeTimeLineTableViewController.xib; sourceTree = "<group>"; };
@@ -220,8 +217,6 @@
 			children = (
 				EC1F90A318E782B100B31812 /* TwitterClient.h */,
 				EC1F90A418E782B100B31812 /* TwitterClient.m */,
-				EC1F90AD18E7978800B31812 /* User.h */,
-				EC1F90AE18E7978800B31812 /* User.m */,
 				EC1F90BB18E7CCE400B31812 /* Tweet.h */,
 				EC1F90BC18E7CCE400B31812 /* Tweet.m */,
 			);
@@ -396,7 +391,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				EC1F90B818E79A9C00B31812 /* HomeTimeLineTableViewCell.m in Sources */,
-				EC1F90AF18E7978800B31812 /* User.m in Sources */,
 				EC1F90A918E783EA00B31812 /* LoginViewController.m in Sources */,
 				EC1F90BD18E7CCE400B31812 /* Tweet.m in Sources */,
 				EC1F908518E7803C00B31812 /* AppDelegate.m in Sources */,

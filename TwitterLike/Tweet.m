@@ -45,13 +45,13 @@
     	return @"less than a minute ago";
     } else if (ti < 3600) {
     	int diff = round(ti / 60);
-    	return [NSString stringWithFormat:@"%d minutes ago", diff];
+    	return [NSString stringWithFormat:@"%dm ago", diff];
     } else if (ti < 86400) {
     	int diff = round(ti / 60 / 60);
-    	return[NSString stringWithFormat:@"%d hours ago", diff];
+    	return[NSString stringWithFormat:@"%dh ago", diff];
     } else if (ti < 2629743) {
     	int diff = round(ti / 60 / 60 / 24);
-    	return[NSString stringWithFormat:@"%d days ago", diff];
+    	return[NSString stringWithFormat:@"%dd ago", diff];
     } else {
     	return @"never";
     }

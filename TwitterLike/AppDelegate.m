@@ -9,7 +9,6 @@
 #import "AppDelegate.h"
 #import "TwitterClient.h"
 #import "HomeTimeLineTableViewController.h"
-#import "User.h"
 
 @implementation NSURL (dictionaryFromQueryString)
 -(NSDictionary *) dictionaryFromQueryString{
