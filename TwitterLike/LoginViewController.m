@@ -7,7 +7,9 @@
 //
 
 #import "LoginViewController.h"
+#import "HomeTimeLineTableViewController.h"
 #import "TwitterClient.h"
+#import "Tweet.h"
 
 @interface LoginViewController ()
 
@@ -42,4 +44,19 @@
 - (IBAction)onLoginButton:(id)sender {
     [[TwitterClient instance] login];
 }
+
+- (void) loggedInWithTweets:(NSArray *)tweetsSourceArray {
+    NSMutableArray *tweetsArray = [[NSMutableArray alloc] init];
+    for(NSDictionary *tweetSrc in tweetsSourceArray) {
+        Tweet *tweet= [[Tweet alloc] init];
+        [tweet initTweetWithDictionary:tweetSrc];
+        [tweetsArray addObject:tweet];
+    }
+    
+    //initialize the HomeTimeLineTableViewController
+    HomeTimeLineTableViewController *homeTimeLine= [[HomeTimeLineTableViewController alloc] init];
+    homeTimeLine.tweets = tweetsArray;
+    [self.navigationController pushViewController:homeTimeLine animated:YES];
+}
+
 @end

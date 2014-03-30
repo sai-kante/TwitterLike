@@ -28,6 +28,7 @@
 		EC1F90B418E79A8000B31812 /* HomeTimeLineTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EC1F90B218E79A8000B31812 /* HomeTimeLineTableViewController.xib */; };
 		EC1F90B818E79A9C00B31812 /* HomeTimeLineTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EC1F90B618E79A9C00B31812 /* HomeTimeLineTableViewCell.m */; };
 		EC1F90B918E79A9C00B31812 /* HomeTimeLineTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = EC1F90B718E79A9C00B31812 /* HomeTimeLineTableViewCell.xib */; };
+		EC1F90BD18E7CCE400B31812 /* Tweet.m in Sources */ = {isa = PBXBuildFile; fileRef = EC1F90BC18E7CCE400B31812 /* Tweet.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -72,6 +73,8 @@
 		EC1F90B518E79A9C00B31812 /* HomeTimeLineTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeTimeLineTableViewCell.h; sourceTree = "<group>"; };
 		EC1F90B618E79A9C00B31812 /* HomeTimeLineTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeTimeLineTableViewCell.m; sourceTree = "<group>"; };
 		EC1F90B718E79A9C00B31812 /* HomeTimeLineTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HomeTimeLineTableViewCell.xib; sourceTree = "<group>"; };
+		EC1F90BB18E7CCE400B31812 /* Tweet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Tweet.h; sourceTree = "<group>"; };
+		EC1F90BC18E7CCE400B31812 /* Tweet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Tweet.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -194,6 +197,8 @@
 				EC1F90A418E782B100B31812 /* TwitterClient.m */,
 				EC1F90AD18E7978800B31812 /* User.h */,
 				EC1F90AE18E7978800B31812 /* User.m */,
+				EC1F90BB18E7CCE400B31812 /* Tweet.h */,
+				EC1F90BC18E7CCE400B31812 /* Tweet.m */,
 			);
 			name = API;
 			sourceTree = "<group>";
@@ -344,6 +349,7 @@
 				EC1F90B818E79A9C00B31812 /* HomeTimeLineTableViewCell.m in Sources */,
 				EC1F90AF18E7978800B31812 /* User.m in Sources */,
 				EC1F90A918E783EA00B31812 /* LoginViewController.m in Sources */,
+				EC1F90BD18E7CCE400B31812 /* Tweet.m in Sources */,
 				EC1F908518E7803C00B31812 /* AppDelegate.m in Sources */,
 				EC1F90A518E782B100B31812 /* TwitterClient.m in Sources */,
 				EC1F908118E7803C00B31812 /* main.m in Sources */,

@@ -7,7 +7,6 @@
 //
 
 #import "AppDelegate.h"
-#import "LoginViewController.h"
 #import "TwitterClient.h"
 #import "HomeTimeLineTableViewController.h"
 
@@ -36,9 +35,11 @@
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
     // Override point for customization after application launch.
-    HomeTimeLineTableViewController *myVc= [[HomeTimeLineTableViewController alloc] init];
-    
-    UINavigationController *uvc = [[UINavigationController alloc] initWithRootViewController:myVc];
+    //HomeTimeLineTableViewController *myVc= [[HomeTimeLineTableViewController alloc] init];
+
+    self.loginVc= [[LoginViewController alloc] init];
+
+    UINavigationController *uvc = [[UINavigationController alloc] initWithRootViewController:self.loginVc];
     self.window.rootViewController = uvc;
 
     self.window.backgroundColor = [UIColor whiteColor];
@@ -91,6 +92,7 @@
                     [client requestHomeTimelineWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
                         NSArray *tweets=(NSArray*)responseObject;
                         NSLog(@"response: %@",tweets[0]);
+                        [self.loginVc loggedInWithTweets:tweets];
                     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                         NSLog(@"failed to retrieve timeline with error : %@",error);
                     }];

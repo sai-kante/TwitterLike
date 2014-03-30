@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-@interface HomeTimeLineTableViewController : UITableViewController
+@interface HomeTimeLineTableViewController : UITableViewController <UITableViewDataSource,UITableViewDelegate>
+
+@property (retain, nonatomic) NSMutableArray *tweets;
 
 @end

@@ -8,6 +8,9 @@
 
 #import "HomeTimeLineTableViewController.h"
 #import "HomeTimeLineTableViewCell.h"
+#import "Tweet.h"
+#import "AFNetworking.h"
+#import <SDWebImage/UIImageView+WebCache.h>
 
 #define SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(v)  ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedAscending)
 
@@ -22,6 +25,16 @@ static int TweetTextLabelWidth=245;
 @end
 
 @implementation HomeTimeLineTableViewController
+
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+{
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    if (self) {
+        self.tweets = [[NSMutableArray alloc] init];
+    }
+    return self;
+}
+
 
 - (void)viewDidLoad
 {
@@ -58,19 +71,19 @@ static int TweetTextLabelWidth=245;
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    HomeTimeLineTableViewCell *cell = [[HomeTimeLineTableViewCell alloc] init];
-//    NSDictionary *business=self.businessesList[indexPath.row];
-    NSString* tweetText=@" this is a sample tweet. this is a sample tweet. this is a sample tweet. this is a sample tweet. this is a sample tweet. this is a sample tweet. this is a sample tweet. this is a sample tweet. ";
-    [cell.tweetText setLineBreakMode:NSLineBreakByWordWrapping];
-    [cell.tweetText setNumberOfLines:0];
-    cell.tweetText.text = tweetText;
-    CGSize size=[self getCGSizeOfTextLabelWithText:tweetText andWidth:TweetTextLabelWidth];
-    //cell.Name.frame = CGRectMake(0, 0, size.width, size.height);
-    
-    NSLog(@"----%@ height: %f",tweetText,size.height);
-    [cell.tweetText sizeToFit];
-    
-    return size.height+CustomTableViewCellHeight;
+//    NSString* tweetText;
+//    if(indexPath.row%2==1) {
+//        tweetText=@" this is a sample tweet. this is a sample tweet. this is a sample tweet. this is a sample tweet. this is a sample tweet. this is a sample tweet. this is a sample tweet. this is a sample tweet : \n END ";
+//    }
+//    else {
+//        tweetText=@" this is a sample tweet. this is a sample tweet : \n END ";
+//    }
+    Tweet *tweet= [[Tweet alloc] init];
+    tweet = self.tweets[indexPath.row];
+    CGSize size=[self getCGSizeOfTextLabelWithText:tweet.tweetText andWidth:TweetTextLabelWidth];
+    CGSize size2=[self getCGSizeOfTextLabelWithText:@"" andWidth:TweetTextLabelWidth];
+    NSLog(@"----%@ height: %f - %f",tweet.tweetText,size.height,size2.height);
+    return size.height-(3*size2.height)+CustomTableViewCellHeight;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -78,19 +91,47 @@ static int TweetTextLabelWidth=245;
     
     HomeTimeLineTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier
                                                                 forIndexPath:indexPath];
-    //NSDictionary *business=self.businessesList[indexPath.row];
-    NSString* tweetText=@" this is a sample tweet. this is a sample tweet. this is a sample tweet. this is a sample tweet. this is a sample tweet. this is a sample tweet. this is a sample tweet. this is a sample tweet. ";
+    Tweet *tweet= [[Tweet alloc] init];
+    tweet = self.tweets[indexPath.row];
+//    NSString* tweetText;
+//    if(indexPath.row%2==1) {
+//        tweetText=@" this is a sample tweet. this is a sample tweet. this is a sample tweet. this is a sample tweet. this is a sample tweet. this is a sample tweet. this is a sample tweet. this is a sample tweet : \n END ";
+//    }
+//    else {
+//        tweetText=@" this is a sample tweet. this is a sample tweet : \n END ";
+//    }
     [cell.tweetText setLineBreakMode:NSLineBreakByWordWrapping];
     [cell.tweetText setNumberOfLines:0];
-    cell.tweetText.text = tweetText;
-    //[cell.Image setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@",[business objectForKey:@"image_url"]]] placeholderImage:[UIImage imageNamed:@"noImage.png"]];
+    cell.tweetText.text = tweet.tweetText;
+    CGSize size=[self getCGSizeOfTextLabelWithText:tweet.tweetText andWidth:TweetTextLabelWidth];
+    NSLog(@"--%@ height: %f",tweet.tweetText,size.height);
+    cell.tweetText.preferredMaxLayoutWidth = CGRectGetWidth(tableView.bounds);
     
-    CGSize size=[self getCGSizeOfTextLabelWithText:tweetText andWidth:TweetTextLabelWidth];
+//    @property (weak, nonatomic) IBOutlet UILabel *lastRetweetedText;
+//    @property (weak, nonatomic) IBOutlet UIImageView *profileImage;
+//    @property (weak, nonatomic) IBOutlet UILabel *userName;
+//    @property (weak, nonatomic) IBOutlet UILabel *screenName;
+//    @property (weak, nonatomic) IBOutlet UILabel *timeSince;
+//    @property (weak, nonatomic) IBOutlet UILabel *numberOfReplies;
+//    @property (weak, nonatomic) IBOutlet UILabel *numberOfRetweets;
+//    @property (weak, nonatomic) IBOutlet UILabel *numberOfFavorites;
+//    @property (weak, nonatomic) IBOutlet UILabel *tweetText;
+    [cell.profileImage setImageWithURL:[NSURL URLWithString:tweet.profileImageUrl] placeholderImage:[UIImage imageNamed:@"noImage.png"]];
     
-    NSLog(@"--%@ height: %f",tweetText,size.height);
+    cell.screenName.text = tweet.screenName;
+    cell.userName.text= tweet.userName;
+    cell.timeSince.text= tweet.timeSince;
+    cell.numberOfReplies.text = tweet.numberOfReplies;
+    cell.numberOfRetweets.text = tweet.numberOfRetweets;
+    cell.numberOfFavorites.text = tweet.numberOfFavorites;
+    cell.lastRetweetedText.text = @"";
+    
+    
     [cell setNeedsUpdateConstraints];
     [cell updateConstraintsIfNeeded];
-    cell.tweetText.preferredMaxLayoutWidth = CGRectGetWidth(tableView.bounds);
+    
+    
+    
     return cell;
 }
 
@@ -159,6 +200,8 @@ static int TweetTextLabelWidth=245;
     [self.navigationController pushViewController:detailViewController animated:YES];
 }
 */
+
+#pragma mark - Helper methods for this class
 
 - (CGSize) getCGSizeOfTextLabelWithText:(NSString*)text andWidth:(int)width {
     UIFont *font = [UIFont boldSystemFontOfSize: TweetTextLabelFontSize];
