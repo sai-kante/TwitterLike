@@ -28,8 +28,34 @@
     self.screenName = [NSString stringWithFormat:@"%@",[user objectForKey:@"screen_name"]];
     self.profileImageUrl = [NSString stringWithFormat:@"%@",[user objectForKey:@"profile_image_url"]];
     
-    self.timeSince = @"0";
-    
+    self.timeSince = [self dateDiff:[NSString stringWithFormat:@"%@",[tweetDict objectForKey:@"created_at"]]];
 }
+
+
+-(NSString *)dateDiff:(NSString *)origDate {
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"eee MMM dd HH:mm:ss ZZZZ yyyy"];
+    NSDate *convertedDate = [dateFormatter dateFromString:origDate];
+    NSDate *todayDate = [NSDate date];
+    double ti = [convertedDate timeIntervalSinceDate:todayDate];
+    ti = ti * -1;
+    if(ti < 1) {
+    	return @"never";
+    } else 	if (ti < 60) {
+    	return @"less than a minute ago";
+    } else if (ti < 3600) {
+    	int diff = round(ti / 60);
+    	return [NSString stringWithFormat:@"%d minutes ago", diff];
+    } else if (ti < 86400) {
+    	int diff = round(ti / 60 / 60);
+    	return[NSString stringWithFormat:@"%d hours ago", diff];
+    } else if (ti < 2629743) {
+    	int diff = round(ti / 60 / 60 / 24);
+    	return[NSString stringWithFormat:@"%d days ago", diff];
+    } else {
+    	return @"never";
+    }
+}
+
 
 @end

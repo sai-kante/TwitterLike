@@ -6,12 +6,12 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="TweetInDetailViewController">
             <connections>
-                <outlet property="favoriteIcon" destination="yrJ-zc-oyN" id="1xy-B0-uDc"/>
+                <outlet property="favoriteIcon" destination="yrJ-zc-oyN" id="39z-ea-zUd"/>
                 <outlet property="favorites" destination="3RX-4a-DMP" id="dgk-Cq-dOW"/>
                 <outlet property="profileImage" destination="QIR-AL-j4c" id="jii-8n-GDb"/>
-                <outlet property="reTweetIcon" destination="rvR-gt-agG" id="U83-YP-hAz"/>
+                <outlet property="reTweetIcon" destination="rvR-gt-agG" id="nqj-Dd-d1Z"/>
                 <outlet property="reTweets" destination="ks5-S9-z8w" id="LoI-6i-mtJ"/>
-                <outlet property="replyicon" destination="i5M-Pr-FkT" id="MKM-fz-WH0"/>
+                <outlet property="replyicon" destination="fIb-yv-5zw" id="J18-MU-Xgk"/>
                 <outlet property="screenName" destination="DT6-9Z-g1P" id="YuH-am-oNg"/>
                 <outlet property="time" destination="5LR-dF-aga" id="ilp-MI-ECk"/>
                 <outlet property="tweetText" destination="w5G-ue-sn0" id="mBN-wz-3Q0"/>

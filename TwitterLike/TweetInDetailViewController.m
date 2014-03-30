@@ -27,7 +27,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *time;
 @property (weak, nonatomic) IBOutlet UILabel *reTweets;
 @property (weak, nonatomic) IBOutlet UILabel *favorites;
-@property (strong, nonatomic) IBOutlet UIView *replyicon;
+@property (strong, nonatomic) IBOutlet UIImageView *replyicon;
 @property (weak, nonatomic) IBOutlet UIImageView *reTweetIcon;
 @property (weak, nonatomic) IBOutlet UIImageView *favoriteIcon;
 
@@ -67,6 +67,10 @@
     self.favorites.text= [NSString stringWithFormat:@"%@ FAVORITES",self.currentTweet.numberOfFavorites];
     self.time.text=self.currentTweet.timeSince;
     self.userName.text=self.currentTweet.userName;
+    
+    self.reTweetIcon.image=[UIImage imageNamed:@"retweet.png"];
+    self.replyicon.image=[UIImage imageNamed:@"reply.png"];
+    self.favoriteIcon.image=[UIImage imageNamed:@"favorite.png"];
     
 }
 
