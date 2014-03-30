@@ -9,7 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface HomeTimeLineTableViewCell : UITableViewCell
-@property (weak, nonatomic) IBOutlet UILabel *lastRetweetedText;
 @property (weak, nonatomic) IBOutlet UIImageView *profileImage;
 @property (weak, nonatomic) IBOutlet UILabel *userName;
 @property (weak, nonatomic) IBOutlet UILabel *screenName;

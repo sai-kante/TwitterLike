@@ -15,7 +15,7 @@
 #define SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(v)  ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedAscending)
 
 static NSString *CellIdentifier = @"HomeTimeLineTableViewCell";
-static int CustomTableViewCellHeight=136;
+static int CustomTableViewCellHeight=125;
 static int TweetTextLabelFontSize=13;
 static int TweetTextLabelWidth=245;
 
@@ -47,6 +47,8 @@ static int TweetTextLabelWidth=245;
     UINib *customCellNib= [UINib nibWithNibName:CellIdentifier bundle:nil];
     [self.tableView registerNib:customCellNib forCellReuseIdentifier:CellIdentifier];
     
+    [self navigationController].navigationBarHidden=NO;
+    [self navigationController].title=@"Recent Tweets";
     
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -71,18 +73,10 @@ static int TweetTextLabelWidth=245;
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-//    NSString* tweetText;
-//    if(indexPath.row%2==1) {
-//        tweetText=@" this is a sample tweet. this is a sample tweet. this is a sample tweet. this is a sample tweet. this is a sample tweet. this is a sample tweet. this is a sample tweet. this is a sample tweet : \n END ";
-//    }
-//    else {
-//        tweetText=@" this is a sample tweet. this is a sample tweet : \n END ";
-//    }
     Tweet *tweet= [[Tweet alloc] init];
     tweet = self.tweets[indexPath.row];
     CGSize size=[self getCGSizeOfTextLabelWithText:tweet.tweetText andWidth:TweetTextLabelWidth];
     CGSize size2=[self getCGSizeOfTextLabelWithText:@"" andWidth:TweetTextLabelWidth];
-    NSLog(@"----%@ height: %f - %f",tweet.tweetText,size.height,size2.height);
     return size.height-(3*size2.height)+CustomTableViewCellHeight;
 }
 
@@ -93,38 +87,24 @@ static int TweetTextLabelWidth=245;
                                                                 forIndexPath:indexPath];
     Tweet *tweet= [[Tweet alloc] init];
     tweet = self.tweets[indexPath.row];
-//    NSString* tweetText;
-//    if(indexPath.row%2==1) {
-//        tweetText=@" this is a sample tweet. this is a sample tweet. this is a sample tweet. this is a sample tweet. this is a sample tweet. this is a sample tweet. this is a sample tweet. this is a sample tweet : \n END ";
-//    }
-//    else {
-//        tweetText=@" this is a sample tweet. this is a sample tweet : \n END ";
-//    }
     [cell.tweetText setLineBreakMode:NSLineBreakByWordWrapping];
     [cell.tweetText setNumberOfLines:0];
     cell.tweetText.text = tweet.tweetText;
-    CGSize size=[self getCGSizeOfTextLabelWithText:tweet.tweetText andWidth:TweetTextLabelWidth];
-    NSLog(@"--%@ height: %f",tweet.tweetText,size.height);
     cell.tweetText.preferredMaxLayoutWidth = CGRectGetWidth(tableView.bounds);
-    
-//    @property (weak, nonatomic) IBOutlet UILabel *lastRetweetedText;
-//    @property (weak, nonatomic) IBOutlet UIImageView *profileImage;
-//    @property (weak, nonatomic) IBOutlet UILabel *userName;
-//    @property (weak, nonatomic) IBOutlet UILabel *screenName;
-//    @property (weak, nonatomic) IBOutlet UILabel *timeSince;
-//    @property (weak, nonatomic) IBOutlet UILabel *numberOfReplies;
-//    @property (weak, nonatomic) IBOutlet UILabel *numberOfRetweets;
-//    @property (weak, nonatomic) IBOutlet UILabel *numberOfFavorites;
-//    @property (weak, nonatomic) IBOutlet UILabel *tweetText;
+
     [cell.profileImage setImageWithURL:[NSURL URLWithString:tweet.profileImageUrl] placeholderImage:[UIImage imageNamed:@"noImage.png"]];
     
-    cell.screenName.text = tweet.screenName;
+    cell.screenName.text = [NSString stringWithFormat:@"@%@",tweet.screenName];
     cell.userName.text= tweet.userName;
     cell.timeSince.text= tweet.timeSince;
     cell.numberOfReplies.text = tweet.numberOfReplies;
     cell.numberOfRetweets.text = tweet.numberOfRetweets;
     cell.numberOfFavorites.text = tweet.numberOfFavorites;
-    cell.lastRetweetedText.text = @"";
+    
+    //add a nice separator
+    UIView* separatorLineView = [[UIView alloc] initWithFrame:CGRectMake(20, 0, 280, 1)];
+    separatorLineView.backgroundColor = [UIColor grayColor];// you can also put image here
+    [cell.contentView addSubview:separatorLineView];
     
     
     [cell setNeedsUpdateConstraints];
