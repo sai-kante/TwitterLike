@@ -8,7 +8,7 @@
 
 #import "AppDelegate.h"
 #import "TwitterClient.h"
-#import "HomeTimeLineTableViewController.h"
+#import "User.h"
 
 @implementation NSURL (dictionaryFromQueryString)
 -(NSDictionary *) dictionaryFromQueryString{
@@ -91,6 +91,15 @@
                 TwitterClient *client=[TwitterClient instance];
                 [client fetchAccessTokenWithPath:@"/oauth/access_token" method:@"POST" requestToken:[BDBOAuthToken tokenWithQueryString:url.query] success:^(BDBOAuthToken *accessToken) {
                     [client.requestSerializer saveAccessToken:accessToken];
+                    
+                    //get user info
+                    [client requestUserInfoWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+                        NSDictionary *userInfo=(NSDictionary*)responseObject;
+                        [[User instance] setCurrentUserInfo:userInfo];
+                    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                        NSLog(@"failed to retrieve user info with error : %@",error);
+                    }];
+                    
                     [client requestHomeTimelineWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
                         NSArray *tweets=(NSArray*)responseObject;
                         //NSLog(@"response: %@",tweets[0]);

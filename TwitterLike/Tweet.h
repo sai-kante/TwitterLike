@@ -18,7 +18,20 @@
 @property (retain, nonatomic) NSString *numberOfRetweets;
 @property (retain, nonatomic) NSString *numberOfFavorites;
 @property (retain, nonatomic) NSString *tweetText;
+@property (nonatomic, assign) BOOL isFavorited;
+@property (nonatomic, assign) BOOL isRetweeted;
+@property (nonatomic, retain) NSString *tweetId;
+@property (nonatomic,retain) NSDictionary *tweetDict;
 
 - (void)initTweetWithDictionary:(NSDictionary*)tweetDict;
 
 @end
+
+
+@implementation UIImageView (setRoundedCorners)
+-(void) setRoundedCorners {
+    self.layer.cornerRadius = 9.0;
+    self.layer.masksToBounds = YES;
+}
+@end
+

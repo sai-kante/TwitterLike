@@ -11,14 +11,6 @@
 @implementation Tweet
 
 - (void)initTweetWithDictionary:(NSDictionary*)tweetDict {
-//    @property (weak, nonatomic) NSString *profileImageUrl;
-//    @property (weak, nonatomic) NSString *userName;
-//    @property (weak, nonatomic) NSString *screenName;
-//    @property (weak, nonatomic) NSString *timeSince;
-//    @property (assign, nonatomic) NSInteger numberOfReplies;
-//    @property (assign, nonatomic) NSInteger numberOfRetweets;
-//    @property (assign, nonatomic) NSInteger numberOfFavorites;
-//    @property (weak, nonatomic) NSString *tweetText;
     self.tweetText=[NSString stringWithFormat:@"%@",[tweetDict objectForKey:@"text"]];
     self.numberOfRetweets= [NSString stringWithFormat:@"%@",[tweetDict objectForKey:@"retweet_count"]];
     self.numberOfFavorites= [NSString stringWithFormat:@"%@",[tweetDict objectForKey:@"favorite_count"]];
@@ -27,8 +19,11 @@
     self.userName = [NSString stringWithFormat:@"%@",[user objectForKey:@"name"]];
     self.screenName = [NSString stringWithFormat:@"%@",[user objectForKey:@"screen_name"]];
     self.profileImageUrl = [NSString stringWithFormat:@"%@",[user objectForKey:@"profile_image_url"]];
-    
+    self.tweetId = [NSString stringWithFormat:@"%@",[user objectForKey:@"id"]];
     self.timeSince = [self dateDiff:[NSString stringWithFormat:@"%@",[tweetDict objectForKey:@"created_at"]]];
+    self.isRetweeted = [tweetDict[@"retweeted"] boolValue];
+    self.isFavorited = [tweetDict[@"favorited"] boolValue];
+    self.tweetDict=tweetDict;
 }
 
 
@@ -42,7 +37,7 @@
     if(ti < 1) {
     	return @"never";
     } else 	if (ti < 60) {
-    	return @"less than a minute ago";
+    	return @"< 1m ago";
     } else if (ti < 3600) {
     	int diff = round(ti / 60);
     	return [NSString stringWithFormat:@"%dm ago", diff];

@@ -41,5 +41,46 @@
     return [self GET:@"1.1/statuses/home_timeline.json" parameters:parameters success:success failure:failure];
 }
 
+- (AFHTTPRequestOperation*) requestUserInfoWithSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
+                                                   failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
+    return [self GET:@"1.1/account/verify_credentials.json" parameters:nil success:success failure:failure];
+}
+
+- (AFHTTPRequestOperation*) postTweet:(NSString*)tweetText inReplyTo:(NSString *)inReplyToTweetId WithSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
+                                               failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
+    NSMutableDictionary *parameters = [NSMutableDictionary dictionaryWithDictionary:@{@"status": tweetText}];
+    if (inReplyToTweetId != nil) {
+        [parameters setObject:inReplyToTweetId forKey:@"in_reply_to_status_id"];
+    }
+    return [self POST:@"1.1/statuses/update.json" parameters:parameters constructingBodyWithBlock:nil success:success failure:failure];
+}
+
+
+- (void)favoriteTweet:(Tweet *)tweet withSuccess:(void (^)(AFHTTPRequestOperation *operation, id response))success failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
+    
+    NSDictionary *parameters = @{@"id": [tweet.tweetDict objectForKey:@"id"]};
+    
+    if (tweet.isFavorited) {
+        [self POST:@"1.1/favorites/destroy.json" parameters:parameters success:success failure:failure];
+    }
+    else {
+        [self POST:@"1.1/favorites/create.json" parameters:parameters success:success failure:failure];
+    }
+}
+
+- (void)retweetTweet:(Tweet *)tweet withSuccess:(void (^)(AFHTTPRequestOperation *operation, id response))success failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
+    
+    NSDictionary *parameters = @{@"id": [tweet.tweetDict objectForKey:@"id"]};
+    
+    if (tweet.isRetweeted) {
+        NSString *unRetweetPath = [NSString stringWithFormat:@"1.1/statuses/destroy/%@.json", [tweet.tweetDict objectForKey:@"id"]];
+        [self POST:unRetweetPath parameters:parameters success:success failure:failure];
+    }
+    else {
+        NSString *retweetPath = [NSString stringWithFormat:@"1.1/statuses/retweet/%@.json", [tweet.tweetDict objectForKey:@"id"]];
+        [self POST:retweetPath parameters:parameters success:success failure:failure];
+    }
+    
+}
 
 @end

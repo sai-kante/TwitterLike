@@ -38,6 +38,9 @@
 		EC1F90D518E804A700B31812 /* retweet_hover.png in Resources */ = {isa = PBXBuildFile; fileRef = EC1F90CE18E804A700B31812 /* retweet_hover.png */; };
 		EC1F90D618E804A700B31812 /* retweet.png in Resources */ = {isa = PBXBuildFile; fileRef = EC1F90CF18E804A700B31812 /* retweet.png */; };
 		EC1F90D818E804C900B31812 /* noImage.png in Resources */ = {isa = PBXBuildFile; fileRef = EC1F90D718E804C900B31812 /* noImage.png */; };
+		EC1F90DC18E8F4D800B31812 /* TweetComposeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EC1F90DA18E8F4D800B31812 /* TweetComposeViewController.m */; };
+		EC1F90DD18E8F4D800B31812 /* TweetComposeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EC1F90DB18E8F4D800B31812 /* TweetComposeViewController.xib */; };
+		EC1F90E018E908E000B31812 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = EC1F90DF18E908E000B31812 /* User.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -93,6 +96,11 @@
 		EC1F90CE18E804A700B31812 /* retweet_hover.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = retweet_hover.png; sourceTree = "<group>"; };
 		EC1F90CF18E804A700B31812 /* retweet.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = retweet.png; sourceTree = "<group>"; };
 		EC1F90D718E804C900B31812 /* noImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = noImage.png; sourceTree = "<group>"; };
+		EC1F90D918E8F4D800B31812 /* TweetComposeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TweetComposeViewController.h; sourceTree = "<group>"; };
+		EC1F90DA18E8F4D800B31812 /* TweetComposeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TweetComposeViewController.m; sourceTree = "<group>"; };
+		EC1F90DB18E8F4D800B31812 /* TweetComposeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TweetComposeViewController.xib; sourceTree = "<group>"; };
+		EC1F90DE18E908E000B31812 /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
+		EC1F90DF18E908E000B31812 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -207,6 +215,9 @@
 				EC1F90C318E7F21600B31812 /* TweetInDetailViewController.h */,
 				EC1F90C418E7F21600B31812 /* TweetInDetailViewController.m */,
 				EC1F90C518E7F21600B31812 /* TweetInDetailViewController.xib */,
+				EC1F90D918E8F4D800B31812 /* TweetComposeViewController.h */,
+				EC1F90DA18E8F4D800B31812 /* TweetComposeViewController.m */,
+				EC1F90DB18E8F4D800B31812 /* TweetComposeViewController.xib */,
 				EC1F90BA18E79AA100B31812 /* ViewCells */,
 			);
 			name = ViewControllers;
@@ -219,6 +230,8 @@
 				EC1F90A418E782B100B31812 /* TwitterClient.m */,
 				EC1F90BB18E7CCE400B31812 /* Tweet.h */,
 				EC1F90BC18E7CCE400B31812 /* Tweet.m */,
+				EC1F90DE18E908E000B31812 /* User.h */,
+				EC1F90DF18E908E000B31812 /* User.m */,
 			);
 			name = API;
 			sourceTree = "<group>";
@@ -327,6 +340,7 @@
 			files = (
 				EC1F90C718E7F21600B31812 /* TweetInDetailViewController.xib in Resources */,
 				EC1F90D318E804A700B31812 /* reply_hover.png in Resources */,
+				EC1F90DD18E8F4D800B31812 /* TweetComposeViewController.xib in Resources */,
 				EC1F90D618E804A700B31812 /* retweet.png in Resources */,
 				EC1F907F18E7803C00B31812 /* InfoPlist.strings in Resources */,
 				EC1F90D818E804C900B31812 /* noImage.png in Resources */,
@@ -390,10 +404,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EC1F90E018E908E000B31812 /* User.m in Sources */,
 				EC1F90B818E79A9C00B31812 /* HomeTimeLineTableViewCell.m in Sources */,
 				EC1F90A918E783EA00B31812 /* LoginViewController.m in Sources */,
 				EC1F90BD18E7CCE400B31812 /* Tweet.m in Sources */,
 				EC1F908518E7803C00B31812 /* AppDelegate.m in Sources */,
+				EC1F90DC18E8F4D800B31812 /* TweetComposeViewController.m in Sources */,
 				EC1F90A518E782B100B31812 /* TwitterClient.m in Sources */,
 				EC1F908118E7803C00B31812 /* main.m in Sources */,
 				EC1F90C618E7F21600B31812 /* TweetInDetailViewController.m in Sources */,

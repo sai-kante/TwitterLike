@@ -9,15 +9,10 @@
 #import "TweetInDetailViewController.h"
 #import "AFNetworking.h"
 #import <SDWebImage/UIImageView+WebCache.h>
+#import "User.h"
+#import "TwitterClient.h"
 
 #define SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(v)  ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedAscending)
-
-@implementation UIImageView (setRoundedCorners)
--(void) setRoundedCorners {
-    self.layer.cornerRadius = 9.0;
-    self.layer.masksToBounds = YES;
-}
-@end
 
 @interface TweetInDetailViewController ()
 @property (weak, nonatomic) IBOutlet UIImageView *profileImage;
@@ -27,9 +22,13 @@
 @property (weak, nonatomic) IBOutlet UILabel *time;
 @property (weak, nonatomic) IBOutlet UILabel *reTweets;
 @property (weak, nonatomic) IBOutlet UILabel *favorites;
-@property (strong, nonatomic) IBOutlet UIImageView *replyicon;
-@property (weak, nonatomic) IBOutlet UIImageView *reTweetIcon;
-@property (weak, nonatomic) IBOutlet UIImageView *favoriteIcon;
+@property (strong, nonatomic) IBOutlet UIButton *replyButton;
+@property (weak, nonatomic) IBOutlet UIButton *reTweetButton;
+@property (weak, nonatomic) IBOutlet UIButton *favoriteButton;
+@property (weak, nonatomic) IBOutlet UILabel *replyPostedLabel;
+- (IBAction)onReplyClicked:(id)sender;
+- (IBAction)onRetweetClicked:(id)sender;
+- (IBAction)onFavoriteClicked:(id)sender;
 
 @end
 
@@ -54,8 +53,6 @@
     }
     self.title=@"Tweet";
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Home" style:UIBarButtonItemStylePlain target:self action:@selector(onBackButton:)];
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Reply" style:UIBarButtonItemStylePlain target:self action:@selector(onReplyButton:)];
-        
     [self.tweetText setLineBreakMode:NSLineBreakByWordWrapping];
     [self.tweetText setNumberOfLines:0];
     self.tweetText.text = self.currentTweet.tweetText;
@@ -67,10 +64,9 @@
     self.favorites.text= [NSString stringWithFormat:@"%@ FAVORITES",self.currentTweet.numberOfFavorites];
     self.time.text=self.currentTweet.timeSince;
     self.userName.text=self.currentTweet.userName;
-    
-    self.reTweetIcon.image=[UIImage imageNamed:@"retweet.png"];
-    self.replyicon.image=[UIImage imageNamed:@"reply.png"];
-    self.favoriteIcon.image=[UIImage imageNamed:@"favorite.png"];
+    self.replyPostedLabel.text=@"";
+    [self.replyButton setImage:[UIImage imageNamed:@"reply"] forState:UIControlStateNormal];
+    [self updateIcons];
     
 }
 
@@ -84,8 +80,73 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
-- (IBAction)onReplyButton:(id)sender {
+
+- (IBAction)onReplyClicked:(id)sender {
+    TweetComposeViewController *composeView= [[TweetComposeViewController alloc] init];
+    composeView.delegate=self;
+    composeView.currentTweet=self.currentTweet;
+    
+    [self presentViewController:composeView animated:YES completion:^{}];
+}
+
+- (IBAction)onRetweetClicked:(id)sender {
+    
+    if (!self.currentTweet.isRetweeted) {
+        [[TwitterClient instance] retweetTweet:self.currentTweet withSuccess:^(AFHTTPRequestOperation *operation, id response) {
+            self.currentTweet.isRetweeted=!self.currentTweet.isRetweeted;
+            self.replyPostedLabel.text=@"Tweet posted";
+            [self updateIcons];
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            NSLog(@"Failed to retweet with error : %@",error);
+        }];
+    }
+    else {
+        NSLog(@"Already retweeted");
+    }
     
 }
+
+- (IBAction)onFavoriteClicked:(id)sender {
+    [[TwitterClient instance] favoriteTweet:self.currentTweet withSuccess:^(AFHTTPRequestOperation *operation, id response) {
+        self.currentTweet.isFavorited=!self.currentTweet.isFavorited;
+        [self updateIcons];
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"Failed to favorite with error : %@",error);
+    }];
+}
+
+- (void) updateIcons {
+    if (self.currentTweet.isFavorited) {
+        [self.favoriteButton setImage:[UIImage imageNamed:@"favorite_on"] forState:UIControlStateNormal];
+    }
+    else {
+        [self.favoriteButton setImage:[UIImage imageNamed:@"favorite"] forState:UIControlStateNormal];
+    }
+    
+    if( self.currentTweet.isRetweeted) {
+        [self.reTweetButton setImage:[UIImage imageNamed:@"retweet_on"] forState:UIControlStateNormal];
+    }
+    else {
+        [self.reTweetButton setImage:[UIImage imageNamed:@"retweet"] forState:UIControlStateNormal];
+    }
+}
+
+# pragma mark TweetComposeViewControllerDelegate
+
+- (void)onCancel {
+    NSLog(@" Tweet post cancelled");
+}
+
+- (void)onTweet:(Tweet *)tweet {
+    
+    [[TwitterClient instance] postTweet:tweet.tweetText inReplyTo:nil WithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"reply to tweet posted with text: %@",tweet.tweetText);
+        self.replyPostedLabel.text=@"Reply posted";
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"Replying to tweet failed with error: %@",error);
+        
+    }];
+}
+
 
 @end

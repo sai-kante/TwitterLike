@@ -7,7 +7,20 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Tweet.h"
 
-@interface TweetComposeViewController : UIViewController
+
+@protocol TweetComposeViewControllerDelegate <NSObject>
+
+- (void)onCancel;
+- (void)onTweet:(Tweet *)tweet;
+
+@end
+
+
+@interface TweetComposeViewController : UIViewController<UITextViewDelegate>
+
+@property(nonatomic,weak) id<TweetComposeViewControllerDelegate> delegate;
+@property(nonatomic,strong) Tweet *currentTweet;
 
 @end

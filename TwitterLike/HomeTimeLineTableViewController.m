@@ -14,7 +14,7 @@
 #import <SDWebImage/UIImageView+WebCache.h>
 #import "MBProgressHUD.h"
 #import "TweetInDetailViewController.h"
-
+#import "User.h"
 
 #define SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(v)  ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedAscending)
 
@@ -22,13 +22,6 @@ static NSString *CellIdentifier = @"HomeTimeLineTableViewCell";
 static int CustomTableViewCellHeight=125;
 static int TweetTextLabelFontSize=13;
 static int TweetTextLabelWidth=245;
-
-@implementation UIImageView (setRoundedCorners)
--(void) setRoundedCorners {
-    self.layer.cornerRadius = 9.0;
-    self.layer.masksToBounds = YES;
-}
-@end
 
 @interface HomeTimeLineTableViewController ()
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
@@ -45,6 +38,13 @@ static int TweetTextLabelWidth=245;
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         self.tweets = [[NSMutableArray alloc] init];
+        //get user info
+        [[TwitterClient instance] requestUserInfoWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+            NSDictionary *userInfo=(NSDictionary*)responseObject;
+            [[User instance] setCurrentUserInfo:userInfo];
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            NSLog(@"failed to retrieve user info with error : %@",error);
+        }];
     }
     return self;
 }
@@ -61,7 +61,7 @@ static int TweetTextLabelWidth=245;
     self.title=@"Recent Tweets";
     
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Logout" style:UIBarButtonItemStylePlain target:self action:@selector(onLogoutButton:)];
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Compose" style:UIBarButtonItemStylePlain target:self action:@selector(onComposeButton:)];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Compose" style:UIBarButtonItemStylePlain target:self action:@selector(onComposeButton:)];
 
     
     progressHUD = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
@@ -197,7 +197,31 @@ static int TweetTextLabelWidth=245;
 }
 
 -(IBAction) onComposeButton:(id)sender {
+    TweetComposeViewController *composeView= [[TweetComposeViewController alloc] init];
+    composeView.delegate=self;
+    Tweet *currentTweet= [[Tweet alloc] init];
+    User *user= [User instance];
+    currentTweet.screenName = user.screenName;
+    currentTweet.profileImageUrl = user.profileImageUrl;
+    currentTweet.userName =user.userName;
+    composeView.currentTweet=currentTweet;
+    [self presentViewController:composeView animated:YES completion:^{}];
+}
+
+# pragma mark TweetComposeViewControllerDelegate
+
+- (void)onCancel {
+    NSLog(@" Tweet post cancelled");
+}
+
+- (void)onTweet:(Tweet *)tweet {
     
+    [[TwitterClient instance] postTweet:tweet.tweetText inReplyTo:nil WithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"Tweet posted with text: %@",tweet.tweetText);
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"Tweet posting failed with error: %@",error);
+        
+    }];
 }
 
 @end

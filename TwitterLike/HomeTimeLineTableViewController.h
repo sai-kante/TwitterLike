@@ -8,8 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "PullRefreshTableViewController.h"
+#import "TweetComposeViewController.h"
 
-@interface HomeTimeLineTableViewController : PullRefreshTableViewController <UITableViewDataSource,UITableViewDelegate>
+@interface HomeTimeLineTableViewController : PullRefreshTableViewController <UITableViewDataSource,UITableViewDelegate,TweetComposeViewControllerDelegate>
 
 @property (retain, nonatomic) NSMutableArray *tweets;
 
