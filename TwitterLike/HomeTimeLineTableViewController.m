@@ -215,7 +215,9 @@ static int TweetTextLabelWidth=245;
 }
 
 - (void)onTweet:(Tweet *)tweet {
-    
+    [self.tweets removeLastObject];
+    [self.tweets insertObject:tweet atIndex:0];
+    [self.tableView reloadData];
     [[TwitterClient instance] postTweet:tweet.tweetText inReplyTo:nil WithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"Tweet posted with text: %@",tweet.tweetText);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
