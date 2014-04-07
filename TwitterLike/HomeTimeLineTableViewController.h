@@ -10,8 +10,16 @@
 #import "PullRefreshTableViewController.h"
 #import "TweetComposeViewController.h"
 
+@protocol HomeTimeLineViewControllerDelegate <NSObject>
+
+- (void) logoutButtonClicked;
+
+@end
+
 @interface HomeTimeLineTableViewController : PullRefreshTableViewController <UITableViewDataSource,UITableViewDelegate,TweetComposeViewControllerDelegate>
 
 @property (retain, nonatomic) NSMutableArray *tweets;
+@property(weak,nonatomic) id<HomeTimeLineViewControllerDelegate> delegate;
+
 
 @end

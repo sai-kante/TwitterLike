@@ -191,9 +191,7 @@ static int TweetTextLabelWidth=245;
 }
 
 -(IBAction) onLogoutButton:(id)sender {
-    TwitterClient *client=[TwitterClient instance];
-    [client deauthorize];
-    [self.navigationController popViewControllerAnimated:YES];
+    [self.delegate logoutButtonClicked];
 }
 
 -(IBAction) onComposeButton:(id)sender {

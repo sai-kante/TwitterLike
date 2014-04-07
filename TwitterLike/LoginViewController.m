@@ -10,6 +10,7 @@
 #import "HomeTimeLineTableViewController.h"
 #import "TwitterClient.h"
 #import "Tweet.h"
+#import "HomeViewController.h"
 
 @interface LoginViewController ()
 
@@ -63,9 +64,12 @@
     }
     
     //initialize the HomeTimeLineTableViewController
-    HomeTimeLineTableViewController *homeTimeLine= [[HomeTimeLineTableViewController alloc] init];
-    homeTimeLine.tweets = tweetsArray;
-    [self.navigationController pushViewController:homeTimeLine animated:YES];
+    //HomeTimeLineTableViewController *homeTimeLine= [[HomeTimeLineTableViewController alloc] init];
+    //homeTimeLine.tweets = tweetsArray;
+    //[self.navigationController pushViewController:homeTimeLine animated:YES];
+    HomeViewController *homeVC= [[HomeViewController alloc] init];
+    homeVC.tweets = tweetsArray;
+    [self.navigationController pushViewController:homeVC animated:YES];
 }
 
 
