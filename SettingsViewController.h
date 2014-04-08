@@ -12,6 +12,7 @@
 
 - (void) homeButtonClicked;
 - (void) mentionsButtonClicked;
+- (void) profileButtonClicked;
 
 @end
 

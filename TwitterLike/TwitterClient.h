@@ -28,6 +28,10 @@ typedef enum
 - (AFHTTPRequestOperation*) requestUserInfoWithSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
                                                failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure ;
 
+- (AFHTTPRequestOperation*) requestUserInfoWithScreenName:(NSString*)screenName withSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
+                                              failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure ;
+
+
 - (AFHTTPRequestOperation*) postTweet:(NSString*)tweetText inReplyTo:(NSString *)inReplyToTweetId WithSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
 failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
 

@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "User.h"
 
 @interface ProfileViewController : UIViewController <UIScrollViewDelegate>
+
+@property (retain, nonatomic) User *user;
 
 @end

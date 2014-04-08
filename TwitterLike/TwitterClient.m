@@ -52,6 +52,12 @@
     return [self GET:@"1.1/account/verify_credentials.json" parameters:nil success:success failure:failure];
 }
 
+- (AFHTTPRequestOperation*) requestUserInfoWithScreenName:(NSString*)screenName withSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
+                                               failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
+    NSDictionary *parameters = @{@"screen_name": screenName};
+    return [self GET:@"1.1/users/show.json" parameters:parameters success:success failure:failure];
+}
+
 - (AFHTTPRequestOperation*) postTweet:(NSString*)tweetText inReplyTo:(NSString *)inReplyToTweetId WithSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
                                                failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
     NSMutableDictionary *parameters = [NSMutableDictionary dictionaryWithDictionary:@{@"status": tweetText}];

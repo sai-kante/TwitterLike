@@ -8,6 +8,7 @@
 
 #import "HomeViewController.h"
 #import "TwitterClient.h"
+#import "ProfileViewController.h"
 
 @interface HomeViewController ()
 @property (weak, nonatomic) IBOutlet UIView *firstView;
@@ -145,5 +146,10 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
+- (void) profileButtonClicked {
+    ProfileViewController *profileView = [[ProfileViewController alloc] init];
+    profileView.user = [User instance];
+    [self.navigationController presentViewController:profileView animated:YES completion:^{}];
+}
 
 @end

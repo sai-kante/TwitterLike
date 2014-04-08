@@ -18,6 +18,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *screenName;
 - (IBAction)onHomeButton:(id)sender;
 - (IBAction)onMentionsButton:(id)sender;
+- (IBAction)onProfileButton:(id)sender;
 
 @end
 
@@ -51,6 +52,10 @@
 
 - (IBAction)onMentionsButton:(id)sender {
     [self.delegate mentionsButtonClicked];
+}
+
+- (IBAction)onProfileButton:(id)sender {
+    [self.delegate profileButtonClicked];
 }
 
 - (void)updateContent {
