@@ -7,13 +7,13 @@
 //
 
 #import "HomeTimeLineTableViewController.h"
-#import "HomeTimeLineTableViewCell.h"
 #import "Tweet.h"
 #import "AFNetworking.h"
 #import <SDWebImage/UIImageView+WebCache.h>
 #import "MBProgressHUD.h"
 #import "TweetInDetailViewController.h"
 #import "User.h"
+#import "ProfileViewController.h"
 
 #define SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(v)  ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedAscending)
 
@@ -130,6 +130,14 @@ static int TweetTextLabelWidth=245;
     cell.numberOfRetweets.text = tweet.numberOfRetweets;
     cell.numberOfFavorites.text = tweet.numberOfFavorites;
     
+    //add tap recognizer to profile image
+    cell.profileImage.userInteractionEnabled = YES;
+    cell.profileImage.tag = indexPath.row;
+    
+    UITapGestureRecognizer *tapped = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(profileImageClicked:)];
+    tapped.numberOfTapsRequired = 1;
+    [cell.profileImage addGestureRecognizer:tapped];
+    
     //add a nice separator
     UIView* separatorLineView = [[UIView alloc] initWithFrame:CGRectMake(20, 0, 280, 1)];
     separatorLineView.backgroundColor = [UIColor grayColor];// you can also put image here
@@ -226,6 +234,35 @@ static int TweetTextLabelWidth=245;
         
     }];
 }
+
+# pragma mark HomeTimeLineTableViewCellDelegate
+
+- (void)profileImageClicked:(id)sender {
+    UITapGestureRecognizer *gesture = (UITapGestureRecognizer *) sender;
+    
+    Tweet *tweet= [[Tweet alloc] init];
+    tweet = self.tweets[gesture.view.tag];
+    
+    TwitterClient *client=[TwitterClient instance];
+    
+    
+    
+    [client requestUserInfoWithScreenName:tweet.screenName withSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSDictionary *userInfo=(NSDictionary*)responseObject;
+        
+        User *user = [User fetchUserFromInfoDict:userInfo];
+        ProfileViewController *profileView = [[ProfileViewController alloc] init];
+        profileView.user = user;
+        [self.navigationController presentViewController:profileView animated:YES completion:^{}];
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        [progressHUD hide:YES];
+        
+        NSLog(@"failed to retrieve timeline of screen name: %@ with error : %@",tweet.screenName,error);
+    }];
+    
+}
+
 
 
 @end

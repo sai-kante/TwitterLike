@@ -16,6 +16,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *followingLabel;
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (weak, nonatomic) IBOutlet UIPageControl *pageConrtol;
+- (IBAction)onBackButton:(id)sender;
 
 @property (nonatomic, strong) UIImageView *imageView1;
 @property (nonatomic, strong) UIImageView *imageView2;
@@ -87,4 +88,7 @@
 }
 
 
+- (IBAction)onBackButton:(id)sender {
+    [self dismissViewControllerAnimated:YES completion:^{}];
+}
 @end

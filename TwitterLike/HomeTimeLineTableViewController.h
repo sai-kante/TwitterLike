@@ -10,6 +10,8 @@
 #import "PullRefreshTableViewController.h"
 #import "TweetComposeViewController.h"
 #import "TwitterClient.h"
+#import "HomeTimeLineTableViewCell.h"
+
 
 @protocol HomeTimeLineViewControllerDelegate <NSObject>
 
