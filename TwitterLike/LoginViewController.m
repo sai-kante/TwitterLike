@@ -36,7 +36,7 @@
     // auto login user if he is persisted
     TwitterClient *client=[TwitterClient instance];
     if([client isAuthorized]) {
-        [client requestHomeTimelineWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+        [client requestTimeline:HOME_TIMELINE WithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
             NSArray *tweets=(NSArray*)responseObject;
             [self loggedInWithTweets:tweets];
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {

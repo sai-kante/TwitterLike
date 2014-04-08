@@ -9,7 +9,6 @@
 #import "HomeTimeLineTableViewController.h"
 #import "HomeTimeLineTableViewCell.h"
 #import "Tweet.h"
-#import "TwitterClient.h"
 #import "AFNetworking.h"
 #import <SDWebImage/UIImageView+WebCache.h>
 #import "MBProgressHUD.h"
@@ -168,9 +167,15 @@ static int TweetTextLabelWidth=245;
 -(void)refreshView:(UIRefreshControl *)refreshC {
     
     refreshC.attributedTitle = [[NSAttributedString alloc] initWithString:@"Refreshing data..."];
+    [self reloadTimeLine];
+    [refreshC endRefreshing];
+    
+}
+
+-(void) reloadTimeLine {
     [progressHUD show:YES];
     TwitterClient *client=[TwitterClient instance];
-    [client requestHomeTimelineWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [client requestTimeline:self.timeLineType WithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSArray *tweets=(NSArray*)responseObject;
         NSMutableArray *tweetsArray = [[NSMutableArray alloc] init];
         for(NSDictionary *tweetSrc in tweets) {
@@ -183,11 +188,9 @@ static int TweetTextLabelWidth=245;
         [self.tableView reloadData];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [progressHUD hide:YES];
-
+        
         NSLog(@"failed to retrieve timeline with error : %@",error);
     }];
-    [refreshC endRefreshing];
-    
 }
 
 -(IBAction) onLogoutButton:(id)sender {
@@ -223,5 +226,6 @@ static int TweetTextLabelWidth=245;
         
     }];
 }
+
 
 @end

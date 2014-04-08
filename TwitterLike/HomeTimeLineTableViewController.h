@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "PullRefreshTableViewController.h"
 #import "TweetComposeViewController.h"
+#import "TwitterClient.h"
 
 @protocol HomeTimeLineViewControllerDelegate <NSObject>
 
@@ -20,6 +21,8 @@
 
 @property (retain, nonatomic) NSMutableArray *tweets;
 @property(weak,nonatomic) id<HomeTimeLineViewControllerDelegate> delegate;
+@property (assign,nonatomic) TimeLineType timeLineType;
 
+-(void) reloadTimeLine; //May be called after changing timeLineType
 
 @end

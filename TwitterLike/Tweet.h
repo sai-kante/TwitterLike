@@ -27,6 +27,9 @@
 
 @end
 
+@interface UIImageView (setRoundedCorners)
+
+@end
 
 @implementation UIImageView (setRoundedCorners)
 -(void) setRoundedCorners {

@@ -45,6 +45,8 @@
 		EC8CFDEE18F20BFE003B8743 /* HomeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EC8CFDEC18F20BFE003B8743 /* HomeViewController.xib */; };
 		EC8CFDF218F20EEC003B8743 /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EC8CFDF018F20EEC003B8743 /* SettingsViewController.m */; };
 		EC8CFDF318F20EEC003B8743 /* SettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EC8CFDF118F20EEC003B8743 /* SettingsViewController.xib */; };
+		ECEA82F218F3D118002F76E7 /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ECEA82F018F3D118002F76E7 /* ProfileViewController.m */; };
+		ECEA82F318F3D118002F76E7 /* ProfileViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = ECEA82F118F3D118002F76E7 /* ProfileViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -111,6 +113,9 @@
 		EC8CFDEF18F20EEC003B8743 /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SettingsViewController.h; path = ../SettingsViewController.h; sourceTree = "<group>"; };
 		EC8CFDF018F20EEC003B8743 /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SettingsViewController.m; path = ../SettingsViewController.m; sourceTree = "<group>"; };
 		EC8CFDF118F20EEC003B8743 /* SettingsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = SettingsViewController.xib; path = ../SettingsViewController.xib; sourceTree = "<group>"; };
+		ECEA82EF18F3D118002F76E7 /* ProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileViewController.h; sourceTree = "<group>"; };
+		ECEA82F018F3D118002F76E7 /* ProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileViewController.m; sourceTree = "<group>"; };
+		ECEA82F118F3D118002F76E7 /* ProfileViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProfileViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -234,6 +239,9 @@
 				EC1F90D918E8F4D800B31812 /* TweetComposeViewController.h */,
 				EC1F90DA18E8F4D800B31812 /* TweetComposeViewController.m */,
 				EC1F90DB18E8F4D800B31812 /* TweetComposeViewController.xib */,
+				ECEA82EF18F3D118002F76E7 /* ProfileViewController.h */,
+				ECEA82F018F3D118002F76E7 /* ProfileViewController.m */,
+				ECEA82F118F3D118002F76E7 /* ProfileViewController.xib */,
 				EC1F90BA18E79AA100B31812 /* ViewCells */,
 			);
 			name = ViewControllers;
@@ -354,6 +362,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ECEA82F318F3D118002F76E7 /* ProfileViewController.xib in Resources */,
 				EC1F90C718E7F21600B31812 /* TweetInDetailViewController.xib in Resources */,
 				EC1F90D318E804A700B31812 /* reply_hover.png in Resources */,
 				EC1F90DD18E8F4D800B31812 /* TweetComposeViewController.xib in Resources */,
@@ -431,6 +440,7 @@
 				EC1F90DC18E8F4D800B31812 /* TweetComposeViewController.m in Sources */,
 				EC8CFDED18F20BFE003B8743 /* HomeViewController.m in Sources */,
 				EC1F90A518E782B100B31812 /* TwitterClient.m in Sources */,
+				ECEA82F218F3D118002F76E7 /* ProfileViewController.m in Sources */,
 				EC1F908118E7803C00B31812 /* main.m in Sources */,
 				EC1F90C618E7F21600B31812 /* TweetInDetailViewController.m in Sources */,
 				EC1F90B318E79A8000B31812 /* HomeTimeLineTableViewController.m in Sources */,

@@ -26,6 +26,7 @@
     [User instance].userName = [NSString stringWithFormat:@"%@",[userInfo objectForKey:@"name"]];
     [User instance].screenName = [NSString stringWithFormat:@"%@",[userInfo objectForKey:@"screen_name"]];
     [User instance].profileImageUrl = [NSString stringWithFormat:@"%@",[userInfo objectForKey:@"profile_image_url"]];
+    [User instance].backgroundImageUrl = [NSString stringWithFormat:@"%@",[userInfo objectForKey:@"profile_background_image_url"]];
 }
 
 - (void)saveCurrentUserToNSUserDefaults {

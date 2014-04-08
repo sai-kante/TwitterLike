@@ -9,14 +9,22 @@
 #import "BDBOAuth1RequestOperationManager.h"
 #import "Tweet.h"
 
+typedef enum
+{
+    HOME_TIMELINE,
+    MENTIONS_TIMELINE
+} TimeLineType;
+
 @interface TwitterClient : BDBOAuth1RequestOperationManager
 
 + (TwitterClient*) instance;
 
 - (void) login;
 
-- (AFHTTPRequestOperation*) requestHomeTimelineWithSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
+- (AFHTTPRequestOperation*) requestTimeline:(TimeLineType)type WithSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
                                                    failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
+
+
 - (AFHTTPRequestOperation*) requestUserInfoWithSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
                                                failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure ;
 

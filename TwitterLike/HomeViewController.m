@@ -14,6 +14,7 @@
 @property (strong, nonatomic) UINavigationController *homeTimeLineNC;
 @property (strong, nonatomic) UINavigationController *settingsNC;
 @property (strong, nonatomic) SettingsViewController *settingsVC;
+@property (strong, nonatomic) HomeTimeLineTableViewController *homeTimeLineVC;
 @property (assign, nonatomic) BOOL isSettingsViewVisible;
 
 @end
@@ -37,12 +38,13 @@
     self.navigationController.navigationBar.hidden=YES;
     
     // Do any additional setup after loading the view from its nib.
-    HomeTimeLineTableViewController *homeTimeLineVC = [[HomeTimeLineTableViewController alloc] init];
-    homeTimeLineVC.tweets= self.tweets;
-    homeTimeLineVC.delegate=self;
+    self.homeTimeLineVC = [[HomeTimeLineTableViewController alloc] init];
+    self.homeTimeLineVC.tweets= self.tweets;
+    self.homeTimeLineVC.timeLineType=HOME_TIMELINE;
+    self.homeTimeLineVC.delegate=self;
     
     self.homeTimeLineNC = [[UINavigationController alloc]
-                                            initWithRootViewController:homeTimeLineVC];
+                                            initWithRootViewController:self.homeTimeLineVC];
     self.homeTimeLineNC.navigationBar.barTintColor = [UIColor colorWithRed:113/255.0f green:228/255.0f blue:246/255.0f alpha:1.0f];
     
     self.settingsVC = [[SettingsViewController alloc] init];
@@ -116,19 +118,25 @@
     
 }
 
-- (void) homeButtonClicked {
-    
+- (void)panBackTimeLineView {
     [UIView animateWithDuration:0.5  animations:^{
         // slide back the timeline
         CGRect viewFrame = self.homeTimeLineNC.view.frame;
         viewFrame.origin.x = 0;
         self.homeTimeLineNC.view.frame = viewFrame;
     }];
-   
+}
+
+- (void) homeButtonClicked {
+    self.homeTimeLineVC.timeLineType=HOME_TIMELINE;
+    [self.homeTimeLineVC reloadTimeLine];
+    [self panBackTimeLineView];
 }
 
 - (void) mentionsButtonClicked {
-    
+    self.homeTimeLineVC.timeLineType=MENTIONS_TIMELINE;
+    [self.homeTimeLineVC reloadTimeLine];
+    [self panBackTimeLineView];
 }
 
 - (void) logoutButtonClicked {

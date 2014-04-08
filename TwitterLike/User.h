@@ -11,6 +11,7 @@
 @interface User : NSObject
 
 @property (retain, nonatomic) NSString *profileImageUrl;
+@property (retain, nonatomic) NSString *backgroundImageUrl;
 @property (retain, nonatomic) NSString *userName;
 @property (retain, nonatomic) NSString *screenName;
 @property (retain, nonatomic) NSDictionary *userInfo;

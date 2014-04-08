@@ -35,10 +35,16 @@
     }];
 }
 
-- (AFHTTPRequestOperation*) requestHomeTimelineWithSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
+- (AFHTTPRequestOperation*) requestTimeline:(TimeLineType)type WithSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
                                                    failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
     NSDictionary *parameters = @{@"count": @20};
-    return [self GET:@"1.1/statuses/home_timeline.json" parameters:parameters success:success failure:failure];
+    NSString *timeLineName = @"home";
+    if(type == MENTIONS_TIMELINE) {
+        timeLineName=@"mentions";
+    }
+    timeLineName = [NSString stringWithFormat:@"1.1/statuses/%@_timeline.json",timeLineName];
+    
+    return [self GET:timeLineName parameters:parameters success:success failure:failure];
 }
 
 - (AFHTTPRequestOperation*) requestUserInfoWithSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success

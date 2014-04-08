@@ -100,7 +100,7 @@
                         NSLog(@"failed to retrieve user info with error : %@",error);
                     }];
                     
-                    [client requestHomeTimelineWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+                    [client requestTimeline:HOME_TIMELINE WithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
                         NSArray *tweets=(NSArray*)responseObject;
                         //NSLog(@"response: %@",tweets[0]);
                         [self.loginVc loggedInWithTweets:tweets];
